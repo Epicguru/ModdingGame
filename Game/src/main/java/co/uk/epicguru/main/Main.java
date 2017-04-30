@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 
 import co.uk.epicguru.logging.Log;
+import co.uk.epicguru.serialization.SER;
 
 public final class Main extends Game {
 
@@ -23,6 +24,7 @@ public final class Main extends Game {
 	public void create() {
 		Log.info("Hello world!");
 		
+		SER.init();		
 	}
 
 	public void render() {
