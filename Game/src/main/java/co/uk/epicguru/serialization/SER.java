@@ -1,5 +1,7 @@
 package co.uk.epicguru.serialization;
 
+import java.io.File;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,8 +25,8 @@ public final class SER {
 		String test = gson.toJson(new AdvancedObject());
 		Log.info(test);
 		
-		Log.info(IO.getWorkingPath());
-		
+		File file = new File(IO.getWorkingPath() + "Test.txt");		
+		IO.write(file, test);
 	}
 	
 }
