@@ -1,5 +1,3 @@
-apply plugin: 'java'
-
 dependencies{
-	compileOnly project(":Game")
+	compileOnly project(":Engine")
 }
