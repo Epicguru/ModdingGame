@@ -3,6 +3,7 @@ package co.uk.epicguru.packer;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
@@ -131,6 +132,16 @@ public final class Packer {
 		return subFilePath.substring(basePath.length());
 	}
 	
+	private void writeDetails(StringBuilder builder, File source, File destination, ArrayList<File> files){
+		builder.append('#');
+		builder.append("Date packed : ");
+		builder.append(LocalDateTime.now().toString().replace('T', ' ')); // Gives without the annoying 'T'!
+		builder.append(this.LINE_SEPARATOR);
+		builder.append("Files:");
+		builder.append(files.size());
+		builder.append(this.LINE_SEPARATOR);
+	}
+	
 	private void packFiles(File parent, ArrayList<File> files, File destination, ProgressMeter m) throws Exception{
 		/*
 		 * Here is the plan:
@@ -145,7 +156,15 @@ public final class Packer {
 		 *  For now, lets just mash all the bytes into one file! Yay!
 		 */
 		
+		// Write a sort of header
 		StringBuilder str = new StringBuilder();
+		str.append('{');
+		str.append(this.LINE_SEPARATOR);
+		this.writeDetails(str, parent, destination, files);
+		str.append('}');
+		str.append(this.LINE_SEPARATOR);
+		
+		// Names of all files
 		for(File file : files){
 			str.append(getPathFrom(parent, file));
 			str.append(this.LINE_SEPARATOR);
@@ -153,11 +172,11 @@ public final class Packer {
 		
 		FileUtils.writeByteArrayToFile(destination, str.toString().getBytes());
 		
-		int total = files.size();
-		int current = 0;
-		for(File file : files){
-			// TODO write bytes
-		}
+//		int total = files.size();
+//		int current = 0;
+//		for(File file : files){
+//			// TODO write bytes
+//		}
 	}
 
 	public void pack(ProgressMeter meter, PackingSettings settings){	
