@@ -19,5 +19,3 @@ include 'services:webservice'
 rootProject.name = 'Game'
 
 include 'Engine'
-include 'ContentPacker'
-include 'ContentUnpacker'
